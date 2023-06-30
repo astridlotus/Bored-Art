@@ -66,7 +66,7 @@
    */
   function findActivity(responseData) {
     let answer = document.getElementById("answer");
-    let activity = document.createElement("p");
+    let activity = document.createElement("h3");
     activity.id = "activity";
     let type = responseData.type;
     answer.innerHTML = "";
@@ -81,7 +81,7 @@
     }
     console.log(type);
     let query =
-      "/search?limit=100&query[term][is_public_domain]=true&q=" + type;
+      "/search?limit=100&query[term][is_public_domain]=true&q=" + "bored";
     makeArtQueryRequest(query, responseData);
   }
 
@@ -97,7 +97,7 @@
       let res = await fetch(url);
       await statusCheck(res);
       let data = await res.json();
-      console.log(data.data);
+      // console.log(data.data);
       let objectData = data.data;
 
       let num = Math.floor(Math.random() * objectData.length);
@@ -106,14 +106,14 @@
       let uniqueData = await specificArtRequest(uniqueID);
 
       if (uniqueData.data.image_id === null) {
-        console.log("no img");
+        console.log("no img for " + uniqueID);
         // If image_id is null, make another specificArtRequest recursively
         return makeArtQueryRequest(query, activityData);
       } else {
         appendImg(uniqueData, activityData);
         // Image_id is not null, perform desired actions
         // ...
-        console.log(uniqueData.data);
+        console.log(uniqueData);
       }
     } catch (err) {
       handleError(err);
@@ -151,15 +151,47 @@
     if (activityData) {
       pActivity.textContent = activityData.activity;
     }
+    console.log("config : " + resData.config.iiif_url);
+    console.log("imageid:" + resData.data.image_id);
     let img = document.createElement("img");
     img.src =
       resData.config.iiif_url +
       "/" +
       resData.data.image_id +
-      "/full/843,/0/default.jpg";
+      "/full/600,/0/default.jpg";
+    console.log(img.src);
     // img.src = data.config + "/" + data.image_id + "/full/843,/0/default.jpg";
     // console.log(src);
     answer.appendChild(img);
+    addCitiation(resData, answer);
+  }
+
+  function addCitiation(data, answer) {
+    let citation = "";
+
+    if (data.data.artist_title) {
+      citation += data.data.artist_title + ". ";
+    }
+
+    if (data.data.title) {
+      citation += '"' + data.data.title + '". ';
+    }
+
+    if (data.data.date_display) {
+      citation += data.data.date_display + ". ";
+    }
+
+    if (data.data.medium_display) {
+      citation += data.data.medium_display + ". ";
+    }
+
+    citation += "Art Institute of Chicago, Chicago";
+
+    console.log(data);
+    console.log(answer);
+    let cite = document.createElement("footer");
+    cite.textContent = citation;
+    answer.appendChild(cite);
   }
 
   /**
