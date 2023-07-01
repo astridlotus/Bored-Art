@@ -81,8 +81,9 @@
     }
     console.log(type);
     let query =
-      "/search?limit=100&query[term][is_public_domain]=true&q=" + "bored";
+      "/search?limit=100&query[term][is_public_domain]=true&q=" + type;
     makeArtQueryRequest(query, responseData);
+    // console.log(query);
   }
 
   /**

@@ -1,5 +1,5 @@
 body {
-  background-color: antiquewhite;
+  background-color: #f5f5f5;
   font-family: "Inter", sans-serif;
   margin-top: 0;
 }
@@ -30,11 +30,11 @@ img {
 /* CSS */
 button {
   width: 220px;
-  background-color: #222;
+  background-color: white;
   border-radius: 4px;
-  border-style: none;
+  border-style: solid;
   box-sizing: border-box;
-  color: #fff;
+  color: black;
   cursor: pointer;
   display: inline-block;
   font-family: "Inter", sans-serif;
@@ -54,7 +54,6 @@ button {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  /* width: 100%; */
 }
 
 button:hover {
@@ -66,10 +65,20 @@ footer {
   font-size: 16px;
   width: 50vw;
 }
+
 h1,
 h2 {
-  background-color: blueviolet;
   width: 100%;
+  background-color: #4481ab;
   padding: 10px;
-  margin: 0 0 5px 0;
+  margin: 0 0 2px 0;
+}
+
+h1 {
+  font-family: "Rock 3D", cursive;
+  font-size: 46px;
+}
+
+h2 {
+  font-size: 20px;
 }
